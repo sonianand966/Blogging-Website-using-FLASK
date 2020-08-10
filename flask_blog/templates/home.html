@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block extra %}
+    {% for post in variable %}
+        <!--flask_blog/static/default_profile_pic-->
+
+        <!-- Note that you can't use straight img class = "..." src = {{ post.author.username }}
+        <!-- as src demands an address where the file is stored not the file itself -->
+
+        <article class="media content-section">
+          <image class = "rounded-circle article-img" src = "{{ url_for('static' , filename = 'default_profile_pic/' + post.author.image_file) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post' , post_id = post.id) }}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock extra %}
